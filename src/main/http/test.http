@@ -1,0 +1,70 @@
+###등록
+POST http://localhost:8081/api/calendar/events
+Content-Type: application/json
+X-USER-ID: marco
+
+{
+  "subject" : "Spring framework 학습",
+  "eventAt": "2023-02-15"
+}
+
+###조회
+GET http://localhost:8081/api/calendar/events/10?format=xml
+Accept: application/json
+X-USER-ID: marco
+
+
+###삭제
+DELETE http://localhost:8081/api/calendar/events/10
+Content-Type: application/json
+X-USER-ID: marco
+
+###삭제
+DELETE http://localhost:8081/api/calendar/events/daily/2023-02-15
+Content-Type: application/json
+X-USER-ID: marco
+
+###일일등록 카운트
+GET http://localhost:8081/api/calendar/daily-register-count?date=2023-02-15
+Accept: application/json
+X-USER-ID: marco
+
+###월별조회
+GET http://localhost:8081/api/calendar/events/?year=2023&month=2
+Accept: application/json
+X-USER-ID: marco
+
+###일별조회
+GET http://localhost:8081/api/calendar/events?year=2023&month=02&day=15
+Accept: application/json
+X-USER-ID: marco
+
+###예외 400
+GET http://localhost:8081/api/calendar/events
+Accept: application/json
+X-USER-ID: marco
+
+###예외 401
+GET http://localhost:8081/api/calendar/events/1
+Accept: application/json
+
+###예외 403
+GET http://localhost:8081/api/calendar/events/1
+Accept: application/json
+X-USER-ID: abc
+
+###예외 404
+GET http://localhost:8081/api/calendar/events/1000000
+Accept: application/json
+X-USER-ID: marco
+
+###예외 405
+PATCH http://localhost:8081/api/calendar/events/1
+Accept: application/json
+X-USER-ID: marco
+
+
+###예외 500
+GET http://localhost:8081/api/calendar/events/a
+Accept: application/json
+X-USER-ID: marco
