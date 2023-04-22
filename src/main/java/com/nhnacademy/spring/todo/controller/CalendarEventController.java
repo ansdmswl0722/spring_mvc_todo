@@ -1,9 +1,6 @@
 package com.nhnacademy.spring.todo.controller;
 
-import com.nhnacademy.spring.todo.domain.Event;
-import com.nhnacademy.spring.todo.domain.RegisterRequest;
-import com.nhnacademy.spring.todo.domain.RegisterResponse;
-import com.nhnacademy.spring.todo.domain.ViewResponse;
+import com.nhnacademy.spring.todo.domain.*;
 import com.nhnacademy.spring.todo.repository.MemoryRepository;
 import com.nhnacademy.spring.todo.service.EventService;
 import lombok.RequiredArgsConstructor;
@@ -17,25 +14,25 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/calendar/events")
+@RequestMapping("/api/calendar")
 @RequiredArgsConstructor
 public class CalendarEventController {
     private final EventService eventService;
 
-    @PostMapping
+    @PostMapping("/events")
     public ResponseEntity<RegisterResponse> register(HttpServletRequest servletRequest,
                                                      @RequestBody RegisterRequest request) {
         RegisterResponse response = eventService.save(servletRequest.getHeader("X-USER-ID"), request.getSubject(),request.getEventAt());
         ResponseEntity<RegisterResponse> responseEntity = new ResponseEntity<>(response, HttpStatus.CREATED);
         return responseEntity;
     }
-    @GetMapping("/{id}")
+    @GetMapping("/events/{id}")
     public ResponseEntity<ViewResponse> viewEventById(@PathVariable long id) {
         ViewResponse response = eventService.getEvent(id);
         ResponseEntity<ViewResponse> responseEntity = new ResponseEntity<>(response, HttpStatus.OK);
         return responseEntity;
     }
-    @GetMapping
+    @GetMapping("/events")
     public ResponseEntity<List<Event>> getDayEvent(@RequestParam("year") Integer year,
                                                    @RequestParam("month") Integer month,
                                                    @RequestParam(value = "day", required = false) String day) {
@@ -44,18 +41,21 @@ public class CalendarEventController {
         return responseEntity;
     }
 
-    @DeleteMapping("/{id)")
-    public ResponseEntity<Void> deleteById(@PathVariable String id){
+    @DeleteMapping("/events/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable("id") String id){
         eventService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/daily/{day}")
-    public ResponseEntity<Void> deleteDayEventAll(@PathVariable String day){
+    @DeleteMapping("/events/daily/{day}")
+    public ResponseEntity<Void> deleteDayEventAll(@PathVariable("day") String day){
         eventService.deleteDayEventAll(day);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
+    @GetMapping("/daily-register-count")
+    public ResponseEntity<CountResponse> countDayEvent(@RequestParam(value="date")String day){
+        CountResponse countResponse = eventService.countDayEvent(day);
+        return new ResponseEntity<>(countResponse,HttpStatus.OK);
+    }
 
 }

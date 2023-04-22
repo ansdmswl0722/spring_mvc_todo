@@ -63,7 +63,6 @@ PATCH http://localhost:8081/api/calendar/events/1
 Accept: application/json
 X-USER-ID: marco
 
-
 ###예외 500
 GET http://localhost:8081/api/calendar/events/a
 Accept: application/json

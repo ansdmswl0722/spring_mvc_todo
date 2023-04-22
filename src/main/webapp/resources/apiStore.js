@@ -6,7 +6,7 @@ const apiStore = function(){
     const SERVER_URL="http://localhost:8081";
 
     //user id는 변경해주세요
-    const X_USER_ID = "moon";
+    const X_USER_ID = "marco";
     const DAILY_MAX_TODO_COUNT=8;
     const api = new Object();
 

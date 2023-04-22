@@ -5,6 +5,6 @@ import lombok.Value;
 @Value
 public class RegisterRequest {
 
-    String subject;
-    String eventAt;
+    private String subject;
+    private String eventAt;
 }

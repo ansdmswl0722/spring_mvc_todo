@@ -32,7 +32,7 @@ public class MapMemoryRepository implements MemoryRepository{
         List<Event> eventList = getAllEvent();
         return eventList.stream()
                 .filter(event -> event.getId().equals(id))
-                .findAny().get();
+                .findFirst().orElse(null);
     }
     @Override
     public List<Event> getDayEventList(String todoDate) {
@@ -49,7 +49,7 @@ public class MapMemoryRepository implements MemoryRepository{
                     .filter(o->o.getEventAt().startsWith(todoDate))
                     .collect(Collectors.toList());
         }
-        throw new NullPointerException();
+        return new ArrayList<>();
     }
 
     public List<Event> getAllEvent() {
@@ -71,7 +71,11 @@ public class MapMemoryRepository implements MemoryRepository{
 
     @Override
     public int countByTodoDate(String todoDate) {
-        return 0;
+        if(Objects.isNull(eventMap.get(todoDate))){
+            return 0;
+        }else {
+        return eventMap.get(todoDate).size();
+        }
     }
 
 }

@@ -2,6 +2,7 @@ package com.nhnacademy.spring.todo.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nhnacademy.spring.todo.controller.ControllerBase;
+import com.nhnacademy.spring.todo.filter.UserInterceptor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -29,9 +31,11 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Mes
     private ApplicationContext applicationContext;
     private MessageSource messageSource;
     private final ObjectMapper objectMapper;
+    private final ObjectMapper xmlObjectMapper;
 
-    public WebConfig( ObjectMapper objectMapper) {
+    public WebConfig( ObjectMapper objectMapper,ObjectMapper xmlObjectMapper) {
         this.objectMapper = objectMapper;
+        this.xmlObjectMapper = xmlObjectMapper;
     }
 
     @Override
@@ -48,6 +52,9 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Mes
         converters.removeIf(o->o instanceof MappingJackson2HttpMessageConverter);
         HttpMessageConverter converter = new MappingJackson2HttpMessageConverter(objectMapper);
         converters.add(converter);
+        converters.removeIf(o->o instanceof MappingJackson2XmlHttpMessageConverter);
+        HttpMessageConverter converter2 = new MappingJackson2XmlHttpMessageConverter(xmlObjectMapper);
+        converters.add(converter2);
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -97,4 +104,9 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Mes
         return springResourceTemplateResolver;
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new UserInterceptor())
+                .addPathPatterns("/api/**");
+    }
 }

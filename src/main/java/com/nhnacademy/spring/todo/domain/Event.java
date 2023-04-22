@@ -18,6 +18,10 @@ public class Event implements Serializable {
         this.createdAt = LocalDateTime.now();
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     public Long getId() {
         return id;
     }

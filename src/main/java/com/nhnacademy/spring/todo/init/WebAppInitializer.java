@@ -4,6 +4,7 @@ import com.nhnacademy.spring.todo.config.RootConfig;
 import com.nhnacademy.spring.todo.config.WebConfig;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.FrameworkServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -27,8 +28,9 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     @Override
     protected Filter[] getServletFilters() {
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+        HiddenHttpMethodFilter hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
         characterEncodingFilter.setEncoding("UTF-8");
-        return new Filter[]{characterEncodingFilter};
+        return new Filter[]{characterEncodingFilter,hiddenHttpMethodFilter};
     }
     @Override
     protected FrameworkServlet createDispatcherServlet(WebApplicationContext servletAppContext) {
