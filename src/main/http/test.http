@@ -44,6 +44,11 @@ GET http://localhost:8081/api/calendar/events
 Accept: application/json
 X-USER-ID: marco
 
+###
+DELETE http://localhost:8081/api/calendar/events/
+Content-Type: application/json
+X-USER-ID: marco
+
 ###예외 401
 GET http://localhost:8081/api/calendar/events/1
 Accept: application/json

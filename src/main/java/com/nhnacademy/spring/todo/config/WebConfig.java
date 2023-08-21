@@ -49,11 +49,10 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Mes
     }
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters){
-        converters.removeIf(o->o instanceof MappingJackson2HttpMessageConverter);
-        HttpMessageConverter converter = new MappingJackson2HttpMessageConverter(objectMapper);
+        converters.removeIf(o->o instanceof MappingJackson2HttpMessageConverter || o instanceof MappingJackson2XmlHttpMessageConverter);
+        HttpMessageConverter<Object> converter = new MappingJackson2HttpMessageConverter(objectMapper);
         converters.add(converter);
-        converters.removeIf(o->o instanceof MappingJackson2XmlHttpMessageConverter);
-        HttpMessageConverter converter2 = new MappingJackson2XmlHttpMessageConverter(xmlObjectMapper);
+        HttpMessageConverter<Object> converter2 = new MappingJackson2XmlHttpMessageConverter(xmlObjectMapper);
         converters.add(converter2);
     }
     @Override

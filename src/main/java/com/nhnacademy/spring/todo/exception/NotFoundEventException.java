@@ -3,7 +3,7 @@ package com.nhnacademy.spring.todo.exception;
 import java.util.NoSuchElementException;
 
 public class NotFoundEventException extends NoSuchElementException {
-   private String errorMessage;
+   private final String errorMessage;
     public NotFoundEventException(long id) {
        this.errorMessage = "eventId : " + id;
     }

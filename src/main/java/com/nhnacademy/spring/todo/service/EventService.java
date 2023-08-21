@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @Service
@@ -22,8 +21,7 @@ public class EventService {
         if (userId == null || userId.isEmpty()) {
             throw new NullPointerException();
         } else {
-            RegisterResponse response = new RegisterResponse(memoryRepository.save(userId, subject, eventAt));
-            return response;
+            return new RegisterResponse(memoryRepository.save(userId, subject, eventAt));
         }
     }
     public ViewResponse getEvent(long id) {
@@ -31,11 +29,10 @@ public class EventService {
         if(Objects.isNull(event)){
             throw new NotFoundEventException(id);
         }else {
-            ViewResponse viewResponse= new ViewResponse(event.getId(),
+            return new ViewResponse(event.getId(),
                     event.getSubject(),
                     event.getEventAt(),
                     event.getCreatedAt());
-            return viewResponse;
         }
     }
     public List<Event> getDayEvent(int year,int month, String day){
@@ -51,10 +48,14 @@ public class EventService {
     }
 
     public void deleteById(String id){
-        if (id==null) {
-           throw new NullPointerException();
+        long converterId = Long.parseLong(id);
+        if(id==null){
+            throw new NullPointerException();
         }
-       memoryRepository.deleteById(Long.parseLong(id));
+        if(Objects.isNull(memoryRepository.getEvent(converterId))){
+            throw new NotFoundEventException(converterId);
+        }
+        memoryRepository.deleteById(converterId);
     }
 
     public void deleteDayEventAll(String day){
@@ -65,8 +66,7 @@ public class EventService {
     }
     public CountResponse countDayEvent(String day){
         int num = memoryRepository.countByTodoDate(day);
-        CountResponse countResponse = new CountResponse(num);
-        return countResponse;
+        return new CountResponse(num);
     }
 
     public String converter(int day) {

@@ -11,11 +11,9 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class CommonControllerAdvice {
@@ -47,7 +45,7 @@ public class CommonControllerAdvice {
 
     @ExceptionHandler(value = {InvalidOwnerException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<ErrorResponse> InvalidOwner(){
+    public ResponseEntity<ErrorResponse> invalidEventOwner(){
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .statusCode(403)
                 .timestamp(LocalDateTime.now())

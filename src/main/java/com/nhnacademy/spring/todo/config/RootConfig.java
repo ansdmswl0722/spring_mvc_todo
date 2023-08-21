@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.nhnacademy.spring.todo.Base;
-import com.nhnacademy.spring.todo.domain.Event;
 import com.nhnacademy.spring.todo.repository.MapMemoryRepository;
 import com.nhnacademy.spring.todo.repository.MemoryRepository;
 import org.springframework.context.MessageSource;
