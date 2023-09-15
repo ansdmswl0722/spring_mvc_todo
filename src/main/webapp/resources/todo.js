@@ -38,7 +38,7 @@ console.log("month:" + navi.getMonth());
             const todoItemDay = todoItem.querySelector(".todo-item-day");
     
             //날짜표시
-            todoItemDay.innerText="";
+            todoItemDay.innerText="DAY ";
             const span1 = document.createElement("span");
             span1.innerText=i;
             todoItemDay.appendChild(span1);

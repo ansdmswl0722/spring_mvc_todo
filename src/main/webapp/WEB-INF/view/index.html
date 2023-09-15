@@ -1,56 +1,44 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <title>todo-list</title>
-        <link rel="stylesheet" href="/resources/style.css"/>
-        <script type="text/javascript" src="/resources/navigator.js"></script>
-        <!-- <script type="text/javascript" src="memoryStore.js"></script> -->
-        <!-- <script type="text/javascript" src="./localStorageStore.js"></script> -->
-        <script type="text/javascript" src="/resources/apiStore.js"></script>
-        <script type="text/javascript" src="/resources/todo.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/resources/style.css">
+    <script type="text/javascript" src="/resources/navigator.js"></script>
+    <script type="text/javascript" src="/resources/apiStore.js"></script>
+    <script type="text/javascript" src="/resources/todo.js"></script>
+</head>
 
-        
-    </head>
-
-    <body>
-
+<body>
+<header>
+    <nav>
+        <h1 id="nav-header-text"> 🌱 TO-DO LIST 🌱</h1>
         <ul id="todo-nav">
-            <li><a href="#" id="btn-prev-month">&lt;&lt;이전</a></li>
+            <li><a href="#" id="btn-prev-month">&lt;&lt; 이전</a></li>
             <li><span id="todo-nav-year"></span>-<span id="todo-nav-month"></span></li>
-            <li><a href="#" id="btn-next-month" >다음&gt;&gt;</a></li>
+            <li><a href="#" id="btn-next-month">다음 &gt;&gt;</a></li>
             <li><a href="#" id="btn-current-month">오늘</a></li>
         </ul>
+    </nav>
+</header>
 
-       
-        <!-- .todo-item 담는 container-->
-        <div id="todo-item-container">
+<main class="center">
+    <div id="todo-item-container"></div>
+</main>
 
+<template id="todo-item-template">
+    <div class="todo-item">
+        <div class="todo-item-day">1</div>
+        <div class="todo-item-form">
+            <form class="form" method="post" autocomplete="off">
+                <p><input type="text" name="todoDate" value="2023-3-13" readonly></p>
+                <p><input type="text" id="melong" name="todoSubject" placeholder="할 일 입력"></p>
+                <p><button type="submit">등록</button></p>
+                <p><button type="button" class="btn-remove-all">모두 삭제</button></p>
+            </form>
         </div>
-
-		<!-- template -->
-        <template id="todo-item-template">
-            <div class="todo-item">
-
-                <div class="todo-item-day">1</div>
-
-                <div class="todo-item-form">
-                    <form class="form" method="post" autocomplete="off" >
-                        <p><input type="text" name="todoDate" value="2023-3-13" readonly /> </p>
-                        <p><input type="text"  id="melong" name="todoSubject" placeholder="todo 입력" /></p>
-                        <p><button type="submit">등록</button></p>
-                        <p><button type="button" class="btn-remove-all">모두삭제</button></p>
-                    </form>
-                </div>
-
-                <ul class="todo-item-list" >
-                    
-                </ul>
-
-            </div>
-        </template>
-
-
-
-    </body>
+        <ul class="todo-item-list"></ul>
+    </div>
+</template>
+</body>
 </html>
